@@ -1,0 +1,314 @@
+$(function(){
+ /**** ckoi **/
+    $("#ckoi").bind("ajax:before", function() {
+       /// console.log("ajax:before");
+       ValidOnQuit();
+        $('li').removeClass('active');
+        $("#ckoi").parents('li').addClass('active');
+    });
+
+    $("#ckoi").bind("ajax:success", function(data, status, xhr) {
+        console.log("ajax:success");
+        //alert(status);  
+         $(".equipe").html(status);
+    });
+
+    $("#ckoi").bind("ajax:complete", function() {
+       // console.log("ajax:complete");   
+    });
+
+    $("#ckoi").bind("ajax:error", function(xhr, status, error) {
+       // console.log("ajax:error");
+        //console.log(error);
+    });
+    
+    
+    /*** club ***/
+       $("#club").bind("ajax:before", function() {
+       /// console.log("ajax:before");
+		ValidOnQuit();
+        $('li').removeClass('active');
+        $("#club").parents('li').addClass('active');
+    });
+
+    $("#club").bind("ajax:success", function(data, status, xhr) {
+        console.log("ajax:success");
+        //alert(status);  
+         $(".equipe").html(status);
+    });
+    
+    
+    /*** equipe adverse ***/
+       $("#equipe_tab_adverse").bind("ajax:before", function() {
+       /// console.log("ajax:before");
+       
+        $('li').removeClass('active');
+        $("#equipe_tab_adverse").parents('li').addClass('active');
+    });
+
+    $("#equipe_tab_adverse").bind("ajax:success", function(data, status, xhr) {
+        console.log("ajax:success");
+        //alert(status);  
+        // $(".equipe").html(status);
+        //  checkboxInit(<%= @tact.to_json %>,<%= @remp.to_json %>);
+		//terrainInit();
+		//playerInit(<%= @tact.to_json %>,<%= @remp.to_json %>,<%= @couleur.to_json %>);
+    });
+     
+    /*** joueur ***/
+
+    $(".joueur").bind("ajax:success", function(data, status, xhr) {
+        console.log("ajax:success joueur");
+        //alert(status);  
+         $(".equipe").html(status);
+    });
+    
+    
+    /*** equipe ***/
+      $("#equipe_tab").bind("ajax:before", function() {
+       /// console.log("ajax:before");
+		
+        $('li').removeClass('active');
+        $("#equipe_tab").parents('li').addClass('active');
+        
+        
+    });
+
+    $("#equipe_tab").bind("ajax:success", function(data, status, xhr) {
+        console.log("ajax:success");
+        //alert(status);  
+       //TODO remake ajax call to get tact[] & remp[]
+		//  $(".equipe").html(status);
+		//checkboxInit(<%= @tact.to_json %>,<%= @remp.to_json %>);
+		//checkboxInit(status.tact.to_json,null);
+		//terrainInit();
+		//playerInit(<%= @tact.to_json %>,<%= @remp.to_json %>,<%= @couleur.to_json %>);
+		
+		
+		/********tablesorter ******/
+        
+			// add parser through the tablesorter addParser method
+$.tablesorter.addParser({
+  // set a unique id
+  id: 'bar',
+  is: function(s, table, cell) {
+    // return false so this parser is not auto detected
+    return false;
+  },
+  format: function(s, table, cell, cellIndex) {
+    // format your data for normalization
+    
+  /**  var i = s.indexOf("%");
+    		
+    num = s.substring(i-2, i);
+    if (i == -1){
+		return s;
+	}
+    else{ 
+		alert (s);
+		return num;
+		
+	}**/
+	if (cell.hasChildNodes){
+		var num = cell.firstChild.style.width;
+		/**var txt = cell.innerHTML;
+		var i = txt.indexOf("%");
+		var j = txt.indexOf(":");
+		var num = txt.substring(j+1,i);**/
+		//console.log (num);
+		num = num.substring(0,num.length-1)
+	   //alert (num);
+		return parseInt(num,10);
+	}
+	else{
+		 return s;
+		 }
+  },
+  // set type, either numeric or text
+  type: 'numeric'
+}); 
+   
+   
+  $("#myTable").tablesorter({
+	   theme: 'blue',
+	   widthFixed : true,
+	   debug : true,
+	   headers: {
+		 0: { sorter: false, filter: false},
+		 1: { filter: false},
+		 2: { sorter: false, filter: false},
+		 4: { sorter: 'bar' },
+		 5: { sorter: 'bar' },
+		6: { sorter: 'bar' },
+		7: { sorter: 'bar' },
+		8: { sorter: 'bar' },
+		9: { sorter: 'bar' },
+		10: { sorter: 'bar' }
+
+		 },
+	   	       // Define a custom text extraction function for each column
+    // In this example, textExtraction 1-5 functions don't really need to
+    // be defined, since they can also be obtained using `$(node).text()`
+   textExtraction: {
+      1: function(node, table, cellIndex){ return $(node).find("input").is(':checked'); }
+/**     4: function(node, table, cellIndex){ return $(node).find(".bar").css("width"); },
+     5: function(node, table, cellIndex){ return $(node).find(".bar").css("width"); },
+      6: function(node, table, cellIndex){ return $(node).find(".bar").css("width"); },
+      7: function(node, table, cellIndex){ return $(node).find(".bar").css("width"); },
+      8: function(node, table, cellIndex){ return $(node).find(".bar").css("width"); },
+      9: function(node, table, cellIndex){ return $(node).find(".bar").css("width"); },
+      10: function(node, table, cellIndex){ return $(node).find(".bar").css("width"); } **/
+    },
+	   
+    // initialize zebra striping and filter widgets
+    widgets: ["zebra", "filter", "stickyHeaders"],
+    
+     widgetOptions : {
+		 filter_useParsedData : false,
+		// filter_childRows  : true,
+      // jQuery selector string of an element used to reset the filters
+      filter_reset : 'button.reset',
+      // add custom selector elements to the filter row
+      filter_formatter : {
+        // Rank
+
+         3 : function($cell, indx){
+          return $.tablesorter.filterFormatter.uiSlider( $cell, indx, {
+            value : 0,
+            min : 14,
+            max : 45,
+            delayed : true,
+            valueToHeader: true,
+            exactMatch: false,    // exact (true) or match (false)
+            allText: 'tous',       // text shown when slider is at the minimum value; ignored when compare has a value
+            compare: '>='         // show values >= selected value; overrides exactMatch
+          });
+        },
+         4 : function($cell, indx){
+          return $.tablesorter.filterFormatter.uiSlider( $cell, indx, {
+            value : 0,
+            min : 0,
+            max : 100,
+            delayed : true,
+            valueToHeader: true,
+            exactMatch: false,    // exact (true) or match (false)
+            allText: 'tous',       // text shown when slider is at the minimum value; ignored when compare has a value
+            compare: '>='         // show values >= selected value; overrides exactMatch
+          });
+        },
+	 5 : function($cell, indx){
+          return $.tablesorter.filterFormatter.uiSlider( $cell, indx, {
+            value : 0,
+            min : 0,
+            max : 100,
+            delayed : true,
+            valueToHeader: true,
+            exactMatch: false,    // exact (true) or match (false)
+            allText: 'tous',       // text shown when slider is at the minimum value; ignored when compare has a value
+            compare: '>='         // show values >= selected value; overrides exactMatch
+          });
+        },
+	 6 : function($cell, indx){
+          return $.tablesorter.filterFormatter.uiSlider( $cell, indx, {
+            value : 0,
+            min : 0,
+            max : 100,
+            delayed : true,
+            valueToHeader: true,
+            exactMatch: false,    // exact (true) or match (false)
+            allText: 'tous',       // text shown when slider is at the minimum value; ignored when compare has a value
+            compare: '>='         // show values >= selected value; overrides exactMatch
+          });
+        },
+	 7 : function($cell, indx){
+          return $.tablesorter.filterFormatter.uiSlider( $cell, indx, {
+            value : 0,
+            min : 0,
+            max : 100,
+            delayed : true,
+            valueToHeader: true,
+            exactMatch: false,    // exact (true) or match (false)
+            allText: 'tous',       // text shown when slider is at the minimum value; ignored when compare has a value
+            compare: '>='         // show values >= selected value; overrides exactMatch
+          });
+        },
+	 8 : function($cell, indx){
+          return $.tablesorter.filterFormatter.uiSlider( $cell, indx, {
+            value : 0,
+            min : 0,
+            max : 100,
+            delayed : true,
+            valueToHeader: true,
+            exactMatch: false,    // exact (true) or match (false)
+            allText: 'tous',       // text shown when slider is at the minimum value; ignored when compare has a value
+            compare: '>='         // show values >= selected value; overrides exactMatch
+          });
+        },
+	 9 : function($cell, indx){
+          return $.tablesorter.filterFormatter.uiSlider( $cell, indx, {
+            value : 0,
+            min : 0,
+            max : 100,
+            delayed : true,
+            valueToHeader: true,
+            exactMatch: false,    // exact (true) or match (false)
+            allText: 'tous',       // text shown when slider is at the minimum value; ignored when compare has a value
+            compare: '>='         // show values >= selected value; overrides exactMatch
+          });
+        },
+         10 : function($cell, indx){
+          return $.tablesorter.filterFormatter.uiSlider( $cell, indx, {
+            value : 0,
+            min : 0,
+            max : 100,
+            delayed : true,
+            valueToHeader: true,
+            exactMatch: false,    // exact (true) or match (false)
+            allText: 'tous',       // text shown when slider is at the minimum value; ignored when compare has a value
+            compare: '>='         // show values >= selected value; overrides exactMatch
+          });
+        }, 
+        
+	  }
+	}
+  });
+        
+                
+        /**************fintablesorter*************************/
+		
+		
+    });
+    
+    
+    /**** transfert ***/
+    
+    $("#transfert").bind("ajax:before", function() {
+       /// console.log("ajax:before");
+		ValidOnQuit();
+        $('li').removeClass('active');
+        $("#transfert").parents('li').addClass('active');
+    });
+
+    $("#transfert").bind("ajax:success", function(data, status, xhr) {
+        console.log("ajax:success");
+        //alert(status);  
+         $(".equipe").html(status);
+    });
+    
+    
+    /**** entrainement ***/
+    
+    $("#entrainement").bind("ajax:before", function() {
+       /// console.log("ajax:before");
+		ValidOnQuit();
+        $('li').removeClass('active');
+        $("#entrainement").parents('li').addClass('active');
+    });
+
+    $("#entrainement").bind("ajax:success", function(data, status, xhr) {
+        console.log("ajax:success");
+        //alert(status);  
+         $(".equipe").html(status);
+    });
+    
+});

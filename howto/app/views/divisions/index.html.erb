@@ -1,0 +1,27 @@
+
+<div>
+<h2>Divisions & Joueurs</h2>
+
+<ul>
+<li>Nord
+<ul>
+<% @divisionN.each do |equipe| %>
+    <li><%= link_to equipe.equipe, :controller=>'equipes', :action=>'show', :id=>equipe.equipeID %> est jouée par <%= equipe.login %> ( <%= mail_to equipe.email, nil, :replace_at => "_at_", :replace_dot => "_dot_" %> ) </li>
+<% end %>
+</ul>
+</li>
+
+</ul>
+</div>
+
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR>
+
+

@@ -1,0 +1,3 @@
+class Joueur < ActiveRecord::Base
+belongs_to :equipes
+end

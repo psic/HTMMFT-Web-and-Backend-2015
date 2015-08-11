@@ -1,0 +1,113 @@
+/* ::::: http://localhost:3000/assets/application.css?body=1 ::::: */
+
+/* ::::: http://localhost:3000/assets/copie%20de%20normal.css.bak.css?body=1 ::::: */
+
+/* ::::: http://localhost:3000/assets/normal.css?body=1 ::::: */
+
+html { margin: 0px; padding: 0px; }
+body { background-color: white; color: black; margin: 0px; padding: 0px; }
+p { text-align: justify; }
+td { font-family: verdana,arial,helvetica,sans-serif; font-size: 14px; line-height: 18px; font-weight: 300; }
+h1, h2, h3 { color: grey; font-weight: 300; }
+a { color: black; text-decoration: none; }
+a:visited { color: black; }
+a:hover { color: blue; }
+#header_container { background-image: url('fond_equipe_black.jpg'); background-color: grey; height: 92px; margin: 0px; padding: 0px; }
+#header { color: black; top: 0px; width: 90%; height: 70px; float: left; }
+#header_filler_right { background-image: url('fond_equipe_black.jpg'); background-color: grey; width: 5%; height: 70px; float: left; color: white; }
+#header_filler_left { background-color: grey; height: 70px; float: left; }
+#header h1 { color: white; font-size: 34px; font-family: "Times New Roman"; font-weight: 200; margin-top: -5px; }
+#header h2 { color: white; font-size: 27px; font-family: "Times New Roman"; font-weight: 200; }
+#header a { color: white; text-decoration: none; }
+#header a:visited { color: white; }
+#header a:hover { color: rgb(200, 216, 250); }
+#global { min-height: 100%; }
+#container { margin-top: 3px; background-color: white; padding-top: 15px; }
+#footer { color: rgb(89, 131, 23); text-align: center; }
+#footer a { color: rgb(89, 131, 23); text-align: center; }
+.new_user_session { display: inline; }
+#header a.interro { color: rgb(8, 76, 227); font-weight: 200; font-size: 40px; }
+#header a.interro:visited { color: rgb(8, 76, 227); }
+#header a.interro:hover { color: rgb(200, 216, 250); }
+.laligne { display: inline; float: right; margin: 0px; padding: 0px; text-align: right; background-color: grey; font-size: 12px; line-height: 10px; vertical-align: bottom; background-image: url('fond_equipe_black.jpg'); }
+.laligne input { color: blue; padding: 0px; margin: 0px; vertical-align: top; font-size: 10px; line-height: 10px; }
+.laligne a { color: white; text-decoration: none; font-size: 12px; padding-top: 10px; margin-bottom: 0px; }
+.laligne a:visited { color: white; }
+.laligne a:hover { color: rgb(200, 216, 250); }
+#onglets { list-style-type: none; margin-left: -40px; margin-top: -20px; color: grey; }
+#onglets h1 { margin: 10px 0px 0px; color: grey; }
+#onglets li { float: left; margin-right: 11px; text-align: center; width: 314px; }
+li#icon_terrain { width: 52px; }
+#onglets li.active { color: white; }
+#onglets a { color: grey; text-decoration: none; }
+#onglets li.active a { color: grey; }
+#onglets a:hover { color: black; }
+.equipe { float: left; height: 100%; width: 79%; color: black; }
+.equipe td { font-size: 14px; line-height: 5px; padding-top: 1px; padding-bottom: 1px; }
+.equipe tr { font-size: 14px; line-height: 1px; padding: 1px; }
+.equipe a { text-decoration: none; }
+.equipe a:visited { color: grey; }
+.equipe a:hover { color: blue; }
+.selected a { color: black; }
+.selected a:visited { color: black; }
+.selected { color: black; }
+.unselected a { color: black; }
+.unselected a:visited { color: black; }
+.unselected { color: black; }
+.equipe_paire { background-color: white; }
+.equipe_impaire { background-color: lightGray; }
+.classement { margin-left: 80%; background-color: white; width: 19%; margin-top: -25px; }
+.classement a { color: black; text-decoration: none; }
+.classement a:visited { color: black; }
+.classement a:hover { color: blue; }
+.classement tr { padding: 1px; 
+//width: 100%; 
+}
+.classement td { padding: 1px 3px 1px 1px; }
+.classement th { text-align: center; 
+//width: 100%;
+}
+.class_container { margin-right: 2px; margin-left: 2px; width: 100%; }
+.classement_tab 	 { 
+//margin-right: 0px;
+ //margin-left: 0px;
+// width: 100%;
+ }
+td.classement_tab { font-size: 12px; }
+.classement h2 { color: grey; margin-bottom: 5px; margin-top: 10px; padding-bottom: 5px; padding-top: 10px; }
+.classement tr:nth-child(even) { background-color: lightGray; }
+.classement tr:nth-child(odd) { background-color: white; }
+.journee tr:nth-child(even) { background-color: lightGray; }
+.journee tr:nth-child(odd) { background-color: white; }
+.journee td:nth-child(3){text-align: right;}
+.agenda { font-size: 12px; line-height: 13px; width: 100%; }
+.agenda tr { padding: 2px; margin-bottom: 2px; font-size: 12px; line-height: 15px; }
+.agenda td { padding: 2px 4px; margin-bottom: 2px; font-size: 12px; line-height: 15px; }
+.calendrier { font-size: 12px; line-height: 12px; width: 100%; }
+.calendrier tr { padding: 1px; margin: 0px; font-size: 12px; line-height: 12px; }
+.calendrier td { padding: 1px 4px; font-size: 12px; line-height: 15px; }
+.calendrier td:nth-child(3){text-align: center;}
+.calendrier td:nth-child(4){text-align: right;}
+.journee { text-align: center; margin-left: 80%; color: black; padding-bottom: 10px; width: 19%; }
+.journee h2 { color: grey; margin-bottom: 5px; margin-top: 10px; padding-bottom: 5px; padding-top: 10px; }
+.liste_joueur { border-style: none; }
+table { font-family: arial,verdana,sans-serif; font-size: 11px; border-collapse: collapse; margin: 5px; }
+td { padding: 5px; }
+td.graph { width: 100px; }
+td.graph .bar { background: none repeat scroll 0% 0% rgb(66, 145, 234); height: 7px; float: left; }
+td.graph .barfiller { background: none repeat scroll 0% 0% rgb(2, 37, 103); height: 7px; }
+.button_to {  }
+.bouton { margin: 5px; }
+.bouton input { float: right; }
+#top { padding: 5px 20px; margin: 5px 20px; border-radius: 20px 20px 20px 20px; background-color: white; color: black; }
+#top a { color: black; text-decoration: none; }
+#top a:visited { color: black; }
+#top a:hover { color: rgb(200, 216, 250); }
+/* ::::: http://localhost:3000/assets/normal1.css.bak.css?body=1 ::::: */
+
+.fb_reset { background: none repeat scroll 0% 0% transparent; border: 0px none; border-spacing: 0px; color: rgb(0, 0, 0); cursor: auto; direction: ltr; font-family: "lucida grande",tahoma,verdana,arial,sans-serif; font-size: 11px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 1; margin: 0px; overflow: visible; padding: 0px; text-align: left; text-decoration: none; text-indent: 0px; text-shadow: none; text-transform: none; visibility: visible; white-space: normal; word-spacing: normal; }
+.fb_reset > div { overflow: hidden; }
+.fb_iframe_widget { display: inline-block; position: relative; }
+.fb_iframe_widget span { display: inline-block; position: relative; text-align: justify; }
+.fb_iframe_widget iframe { position: absolute; }
+.fb_edge_widget_with_comment { position: relative; }

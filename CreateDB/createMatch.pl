@@ -1,0 +1,182 @@
+#!/usr/bin/perl -w
+use strict;
+use warnings;
+use DBI;
+
+#Ce script genere les matchs
+
+my $database="howto";
+#my $hostname="88.167.71.144";
+#my $hostname="192.168.30.15";
+my $hostname="127.0.0.1";
+#my $login = "football";
+#my $mdp = "!M4n4g3r";
+
+my $login = "root";
+my $mdp = "cacapipi";
+
+
+my $dsn = "DBI:mysql:database=$database;host=$hostname";
+my $dbh = DBI->connect($dsn, $login, $mdp) or die "Echec connexion";
+
+my @listeEquipe = ();
+my @listeEquipetmp = ();
+my @listeJournee =();
+my @listeNumJournee = ();
+my @result = ();
+my @journee_ID = ();
+my @listeDivision = ();
+
+my $a;
+my $e;
+my $j;
+my $d;
+
+  my $requeteEquipeDivision;
+  my $requeteMatch;
+  my $requeteJournee;
+  my $requeteUneJournee;
+  my $requeteDivision;
+
+  my $sthEquipeDivision;
+  my $sthMatch;
+  my $sthJournee;
+  my $sthUneJournee;
+  my $sthDivision;
+
+  $requeteEquipeDivision = "SELECT equipes.id
+  FROM equipes, clubs, divisions 
+  WHERE clubs.id = equipes.club_id
+  AND divisions.id = clubs.division_id
+  AND divisions.nom = ?;";
+  
+  #"SELECT equipes.id 
+#			    FROM equipes, saisons, divisions, historiques, annees
+#			    WHERE historiques.equipe_id = equipes.id
+#			    AND historiques.saison_id = saisons.id
+#			    AND saisons.division_id = divisions.id
+#			    AND divisions.nom = ?
+#			    AND annees.id = saisons.annee_id
+#			    AND annees.annee_courante = 0;";
+
+  $requeteMatch = "INSERT INTO `matchs` (`division_id`,`equipe1_id`,`equipe2_id`,`num_journee`) VALUES (1,?,?,?);";
+ 
+  $requeteDivision = "SELECT nom
+		      FROM divisions;";
+
+  
+$sthEquipeDivision = $dbh->prepare($requeteEquipeDivision);
+$sthMatch = $dbh->prepare($requeteMatch);
+$sthDivision = $dbh->prepare($requeteDivision);
+
+$sthDivision->execute();
+
+while(@result = $sthDivision->fetchrow_array)
+{
+push(@listeDivision, $result[0]);
+}
+
+$d=0;
+
+foreach my $Division (@listeDivision)
+{
+
+$d= $d + 1;
+
+$sthEquipeDivision->execute($Division);
+
+print "\n $Division \n";
+@listeEquipe = ();
+
+while(@result = $sthEquipeDivision->fetchrow_array)
+{
+push(@listeEquipe, $result[0]);
+print "\n $result[0]";
+}
+
+my $n;
+my $p;
+$a=1;
+$e=0;
+$j=0;
+$n = scalar (@listeEquipe)/2;
+$p = scalar (@listeEquipe);
+#Pour chaque Journee
+for ($j=1;$j<= (((scalar(@listeEquipe)-1) *2));$j++)
+{
+  print "\n   Journee  : $j \n";
+  if ($j < (scalar(@listeEquipe)) ) #aller de 1 a 15
+  {
+    for ( $e = 0; $e < $n ;$e++)#chaque equipe
+    {
+	  if ($e == 0){
+		if ($j%2 == 1){
+			$sthMatch->execute($listeEquipe[$e],$listeEquipe[ $e +$n ],$j);
+		  	print " $listeEquipe[$e] - $listeEquipe[ $e +$n]  \n";
+  		}
+		else{
+			$sthMatch->execute($listeEquipe[ $e +$n],$listeEquipe[ $e ],$j);
+			print " $listeEquipe[$e +$n ] - $listeEquipe[ $e ]  \n";
+		}
+	 }
+	 else{
+		if ( $e % 2 == 1){
+			$sthMatch->execute($listeEquipe[$e],$listeEquipe[ $e +$n ],$j);
+		  	print " $listeEquipe[$e] - $listeEquipe[ $e +$n]  \n";
+	  		}
+		else{
+			$sthMatch->execute($listeEquipe[ $e +$n],$listeEquipe[ $e ],$j);
+			print " $listeEquipe[$e +$n ] - $listeEquipe[ $e ]  \n";
+		}
+	}
+     }
+ }
+  else # match retour
+  {
+      for ( $e = 0; $e < $n ;$e++) #chaque equipe
+     {
+	  if ($e == 0){
+		if ($j%2 == 1){
+			$sthMatch->execute($listeEquipe[$e],$listeEquipe[ $e +$n ],$j);
+		  	print " $listeEquipe[$e] - $listeEquipe[ $e +$n]  \n";
+  		}
+		else{
+			$sthMatch->execute($listeEquipe[ $e +$n],$listeEquipe[ $e ],$j);
+			print " $listeEquipe[$e +$n ] - $listeEquipe[ $e ]  \n";
+		}
+	 }
+	 else{
+		if ( $e % 2 == 0){
+			$sthMatch->execute($listeEquipe[$e],$listeEquipe[ $e +$n ],$j);
+		  	print " $listeEquipe[$e] - $listeEquipe[ $e +$n]  \n";
+	  		}
+		else{
+			$sthMatch->execute($listeEquipe[ $e +$n],$listeEquipe[ $e ],$j);
+			print " $listeEquipe[$e +$n ] - $listeEquipe[ $e ]  \n";
+		}
+	}
+     } 
+  }
+
+
+    #On tourne le numero des equipe sauf le "1"
+    $listeEquipetmp[0] = $listeEquipe[0];
+    my $t=2; 
+     for ($e=1; $e < $p ;$e++)
+     { 
+	if ($e == $n + 1){
+		$listeEquipetmp[1] = $listeEquipe[$e];
+			}
+	else{
+		if ($e == $n){
+		$listeEquipetmp[$p-1] = $listeEquipe[$e];
+		    }
+		else{
+			$listeEquipetmp[$t] = $listeEquipe[$e];
+			$t++;
+		}
+	}
+     }
+     @listeEquipe = @listeEquipetmp;
+}
+}

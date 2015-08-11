@@ -1,0 +1,256 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+ <head>
+    <title>HTMMFT</title>  
+
+<%= stylesheet_link_tag "application", media: "all" %>
+<%= javascript_include_tag "application" %>
+
+    <meta name="description" content="HowToManageMyFootballTeam is a free online football (soccer) manager game." />
+	<meta name="keywords" content="Football Manager, Online Football Manager, Free Football Manager, Soccer Manager, Football, Soccer, Online Football Manager Game, Football Club, Football Community" />
+    <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-22341697-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+<script language="Javascript"> 
+  
+  $(function() {
+  
+  // add parser through the tablesorter addParser method
+$.tablesorter.addParser({
+  // set a unique id
+  id: 'bar',
+  is: function(s, table, cell) {
+    // return false so this parser is not auto detected
+    return false;
+  },
+  format: function(s, table, cell, cellIndex) {
+    // format your data for normalization
+    
+  /**  var i = s.indexOf("%");
+    		
+    num = s.substring(i-2, i);
+    if (i == -1){
+		return s;
+	}
+    else{ 
+		alert (s);
+		return num;
+		
+	}**/
+	if (cell.hasChildNodes){
+		var num = cell.firstChild.style.width;
+		/**var txt = cell.innerHTML;
+		var i = txt.indexOf("%");
+		var j = txt.indexOf(":");
+		var num = txt.substring(j+1,i);**/
+		//console.log (num);
+		num = num.substring(0,num.length-1)
+	   //alert (num);
+		return parseInt(num,10);
+	}
+	else{
+		 return s;
+		 }
+  },
+  // set type, either numeric or text
+  type: 'numeric'
+}); 
+   
+   
+  $("#myTable").tablesorter({
+	   theme: 'blue',
+	   widthFixed : true,
+	   debug : true,
+	   headers: {
+		 0: { sorter: false, filter: false},
+		 1: { filter: false},
+		 2: { sorter: false, filter: false},
+		 4: { sorter: 'bar' },
+		 5: { sorter: 'bar' },
+		6: { sorter: 'bar' },
+		7: { sorter: 'bar' },
+		8: { sorter: 'bar' },
+		9: { sorter: 'bar' },
+		10: { sorter: 'bar' }
+
+		 },
+	   	       // Define a custom text extraction function for each column
+    // In this example, textExtraction 1-5 functions don't really need to
+    // be defined, since they can also be obtained using `$(node).text()`
+   textExtraction: {
+      1: function(node, table, cellIndex){ return $(node).find("input").is(':checked'); }
+/**     4: function(node, table, cellIndex){ return $(node).find(".bar").css("width"); },
+     5: function(node, table, cellIndex){ return $(node).find(".bar").css("width"); },
+      6: function(node, table, cellIndex){ return $(node).find(".bar").css("width"); },
+      7: function(node, table, cellIndex){ return $(node).find(".bar").css("width"); },
+      8: function(node, table, cellIndex){ return $(node).find(".bar").css("width"); },
+      9: function(node, table, cellIndex){ return $(node).find(".bar").css("width"); },
+      10: function(node, table, cellIndex){ return $(node).find(".bar").css("width"); } **/
+    },
+	   
+    // initialize zebra striping and filter widgets
+    widgets: ["zebra", "filter", "stickyHeaders"],
+    
+     widgetOptions : {
+		 filter_useParsedData : false,
+		// filter_childRows  : true,
+      // jQuery selector string of an element used to reset the filters
+      filter_reset : 'button.reset',
+      // add custom selector elements to the filter row
+      filter_formatter : {
+        // Rank
+
+         3 : function($cell, indx){
+          return $.tablesorter.filterFormatter.uiSlider( $cell, indx, {
+            value : 0,
+            min : 14,
+            max : 45,
+            delayed : true,
+            valueToHeader: true,
+            exactMatch: false,    // exact (true) or match (false)
+            allText: 'tous',       // text shown when slider is at the minimum value; ignored when compare has a value
+            compare: '>='         // show values >= selected value; overrides exactMatch
+          });
+        },
+         4 : function($cell, indx){
+          return $.tablesorter.filterFormatter.uiSlider( $cell, indx, {
+            value : 0,
+            min : 0,
+            max : 100,
+            delayed : true,
+            valueToHeader: true,
+            exactMatch: false,    // exact (true) or match (false)
+            allText: 'tous',       // text shown when slider is at the minimum value; ignored when compare has a value
+            compare: '>='         // show values >= selected value; overrides exactMatch
+          });
+        },
+	 5 : function($cell, indx){
+          return $.tablesorter.filterFormatter.uiSlider( $cell, indx, {
+            value : 0,
+            min : 0,
+            max : 100,
+            delayed : true,
+            valueToHeader: true,
+            exactMatch: false,    // exact (true) or match (false)
+            allText: 'tous',       // text shown when slider is at the minimum value; ignored when compare has a value
+            compare: '>='         // show values >= selected value; overrides exactMatch
+          });
+        },
+	 6 : function($cell, indx){
+          return $.tablesorter.filterFormatter.uiSlider( $cell, indx, {
+            value : 0,
+            min : 0,
+            max : 100,
+            delayed : true,
+            valueToHeader: true,
+            exactMatch: false,    // exact (true) or match (false)
+            allText: 'tous',       // text shown when slider is at the minimum value; ignored when compare has a value
+            compare: '>='         // show values >= selected value; overrides exactMatch
+          });
+        },
+	 7 : function($cell, indx){
+          return $.tablesorter.filterFormatter.uiSlider( $cell, indx, {
+            value : 0,
+            min : 0,
+            max : 100,
+            delayed : true,
+            valueToHeader: true,
+            exactMatch: false,    // exact (true) or match (false)
+            allText: 'tous',       // text shown when slider is at the minimum value; ignored when compare has a value
+            compare: '>='         // show values >= selected value; overrides exactMatch
+          });
+        },
+	 8 : function($cell, indx){
+          return $.tablesorter.filterFormatter.uiSlider( $cell, indx, {
+            value : 0,
+            min : 0,
+            max : 100,
+            delayed : true,
+            valueToHeader: true,
+            exactMatch: false,    // exact (true) or match (false)
+            allText: 'tous',       // text shown when slider is at the minimum value; ignored when compare has a value
+            compare: '>='         // show values >= selected value; overrides exactMatch
+          });
+        },
+	 9 : function($cell, indx){
+          return $.tablesorter.filterFormatter.uiSlider( $cell, indx, {
+            value : 0,
+            min : 0,
+            max : 100,
+            delayed : true,
+            valueToHeader: true,
+            exactMatch: false,    // exact (true) or match (false)
+            allText: 'tous',       // text shown when slider is at the minimum value; ignored when compare has a value
+            compare: '>='         // show values >= selected value; overrides exactMatch
+          });
+        },
+         10 : function($cell, indx){
+          return $.tablesorter.filterFormatter.uiSlider( $cell, indx, {
+            value : 0,
+            min : 0,
+            max : 100,
+            delayed : true,
+            valueToHeader: true,
+            exactMatch: false,    // exact (true) or match (false)
+            allText: 'tous',       // text shown when slider is at the minimum value; ignored when compare has a value
+            compare: '>='         // show values >= selected value; overrides exactMatch
+          });
+        }, 
+        
+	  }
+	}
+  });
+})
+
+
+</script>
+
+
+  </head>
+<body OnUnload="ValidOnQuit()" onload="checkboxInit(<%= @tact.to_json %>,<%= @remp.to_json %>);terrainInit();playerInit(<%= @tact.to_json %>,<%= @remp.to_json %>,<%= @couleur.to_json %>);">
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/fr_FR/all.js#xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<div id="global">
+	<div id="header_container">	
+		<div id="header">
+			<h1><%= link_to 'How to manage my football team ', '/' %><%= link_to '?', {:controller=>'howto'}, {:class =>"interro"} %></h1>
+			<h2><%= link_to '"Make it smart, keep it simple!"', {:controller=>'howto'} %></h2>
+		
+		<%= render :partial => "shared/menu"%>
+		</div>
+</div>
+	<div id="container">
+		<%= render :partial => "shared/nav"%> 
+		<div class = "equipe">
+			<%= yield  %>
+			</div>
+		<div class="classement"><%= render :partial => "shared/classement"%></div>
+		<div class="journee"><%= render :partial => "shared/agenda"%></div>
+		<div class="journee"><%= render :partial => "shared/calendrier"%></div>
+
+	<div id="footer">
+		<%= render :partial => "shared/footer"%>
+	</div>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<div id="menu">
+<nav>
+			<!-- <ul id="onglets"> -->
+			<ul>
+			<% if current_team  == params[:id].to_i || request.path == '/' || request.path == "/mon_equipe" %>
+				<li id ="icon_terrain" class="active"><%= link_to (image_tag 'icone_terrain.png'), '/' , remote: true , :id =>'equipe_tab'%>
+			<% else %>
+				<% if not current_user  %>
+					<li id ="icon_terrain" class="active"><%= link_to (image_tag 'icone_terrain.png'), '/' , remote: true , :id =>'equipe_tab'%>
+				<% else %>	
+					<li id ="icon_terrain" ><%= link_to (image_tag 'icone_terrain.png'), '/' , :id =>'equipe_tab'%>	
+				<% end %>	
+			<% end %>	
+<%if not current_user %>		
+			<li><H1><%= link_to @joueurs[0].equipe.nom, {:controller=>'clubs', :action=>'show', :id=>@joueurs[0].equipe.id} ,remote: true , :id =>'club' %> / Démo</H1></li> 
+				<!--			<li><H1><a href="">Transferts</a></H1> (non disponible en démo)</li>-->
+			<li><H1><%= link_to "C'est quoi donc ?",  page_path('ckoidonc'), remote: true , :id =>'ckoi' %></H1></li>
+				<!--<li><H1><a href="">Entrainement</a></H1> (non disponible en démo)</li>-->
+			<li><H1><%= link_to "Médias", page_path('medias'), remote: true , :id =>'media'%></H1></li>
+<% else %>
+		<% if @login.empty?  %>
+			<li><H1><%= link_to @joueurs[0].equipe.nom,  {:controller=>'clubs', :action=>'show', :id=>@joueurs[0].equipe.id} ,remote: true , :id =>'club' %></H1></li>				
+		<% else %>		
+			<li><H1><%= link_to @joueurs[0].equipe.nom,  {:controller=>'clubs', :action=>'show', :id=>@joueurs[0].equipe.id} ,remote: true , :id =>'club' %></H1></li>
+		<% end %>
+		<% if current_team  == params[:id].to_i || request.path == '/' || request.path == "/mon_equipe" %>
+			<li><H1><%= link_to 'Transferts', {:controller=>'transferts', :action=>'show', :id=>@joueurs[0].equipe.id}, remote:true, :id=>'transfert' %></H1></li>
+			<li><H1><%= link_to 'Entrainement', {:controller=>'entrainements', :action=>'show', :id=>@joueurs[0].equipe.id}, remote:true, :id=>'entrainement' %></H1></li>
+		<% else %>
+ 		   <li class="active" id="icon_terrain_adverse"><H1><%= link_to "#{(image_tag 'icone_terrain.png',size: "16x25")} #{@joueurs[0].equipe.nom}".html_safe, {:controller=>'equipes', :action=>'show', :id=>params[:id]} ,remote: true , :id =>'equipe_tab_adverse' %></H1></li>
+			<!--<li><H1>Transferts</H1> (non disponible)</li>
+			<li><H1>Entrainement</H1> (non disponible)</li> -->
+		<% end %>	
+		 
+		
+<% end %>
+  </ul>
+</nav>
+</div>		
